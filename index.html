@@ -12,6 +12,58 @@
       <script src="public/application.js" type="text/javascript" charset="utf-8" defer></script>
     </head>
     <body>
-      <h1>Browser Template</h1>
+      <header>
+        <h1>Tic Tac Toe</h1>
+      </header>
+      <section class="not-logged-in">
+        <p>Sign Up</p>
+        <form id="sign-up">
+          <input type="text" name="credentials[email]" required placeholder="Email">
+          <input type="password" name="credentials[password]" required placeholder="Password">
+          <input type="password" name="credentials[password_confirmation]" required placeholder="Password">
+          <button type="submit">Sign Up</button>
+        </form>
+        <p>Or Log In</p>
+        <form id="log-in">
+          <input type="text" name="credentials[email]" required placeholder="Email">
+          <input type="password" name="credentials[password]" required placeholder="Password">
+          <button type="submit">Log In</button>
+        </form>
+        <!-- Not implemented yet -->
+        <p>Or Sign In As A Guest</p>
+        <form id="guest-sign-in">
+          <button type="submit">Guest Sign In</button>
+        </form>
+      </section>
+      <section class="logged-in">
+        <p>Change Password</p>
+        <form id="change-password">
+          <input type="password" name="passwords[old]" required placeholder="Old Password">
+          <input type="password" name="passwords[new]" required placeholder="New Password">
+          <button type="submit">ChangePassword</button>
+        </form>
+        <p>Log Out</p>
+        <form id="log-out">
+          <button type="submit">Log out</button>
+        </form>
+      </section>
+      <main>
+        <div class="container board">
+          <div class="row">
+            <div class="col-4 board-square" id="0" value="0"> XO </div>
+            <div class="col-4 board-square" id="1" value="0"> XO </div>
+            <div class="col-4 board-square" id="2" value="0"> XO </div>
+          </div>
+          <div class="row">
+            <div class="col-4 board-square" id="3" value="0"> XO </div>
+            <div class="col-4 board-square" id="4" value="0"> XO </div>
+            <div class="col-4 board-square" id="5" value="0"> XO </div>
+          </div>
+          <div class="row">
+            <div class="col-4 board-square" id="6" value="0"> XO </div>
+            <div class="col-4 board-square" id="7" value="0"> XO </div>
+            <div class="col-4 board-square" id="8" value="0"> XO </div>
+          </div>
+      </main>
     </body>
 </html>
