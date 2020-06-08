@@ -10,6 +10,9 @@ const authEvents = require('./auth/events.js')
 const gameEvents = require('./game-logic/events.js')
 
 $(() => {
+  $('.logged-in').hide()
+  $('.game').hide()
+
   $('#sign-up').on('submit', authEvents.onSignUp)
   $('#log-in').on('submit', authEvents.onLogIn)
   $('#change-password').on('submit', authEvents.onChangePassword)

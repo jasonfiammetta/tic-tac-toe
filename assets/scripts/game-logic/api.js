@@ -1,9 +1,9 @@
-const getGames = function () {}
+const getGames = function (over) {}
 const createGame = function () {}
-const getGame = function () {}
+const getGame = function (id) {}
 
-const deleteGame = function () {}
-const watchGame = function () {}
+const deleteGame = function (id) {}
+const watchGame = function (id) {}
 
 const sendMove = function (move, over) {
   // use api functionality
