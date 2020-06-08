@@ -12,7 +12,7 @@ const gameStart = function () {
 const playMove = function (move, xo) {
   console.log('ui playMove', move)
   $('#' + move).text(xo)
-  $('#board-message').text(`Played move in spot ${move}!`)
+  $('#board-message').text(`Played ${xo} in spot ${move}!`)
 }
 
 const gameOver = function () {

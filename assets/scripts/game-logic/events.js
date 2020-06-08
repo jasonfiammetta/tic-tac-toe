@@ -27,20 +27,14 @@ const onPlay = function (event) {
   const move = event.target.id
 
   const movePlayed = controller.playMove(move)
-  const over = controller.checkWin()
+  const over = controller.checkEnd()
   console.log('Game over?', over)
   api.sendMove(movePlayed, over)
-  gameAlive = !over
+  gameAlive = !over // This is sloppy
 }
-
-// const onRestart = function (event) {
-//   // api do stuff
-//   game.restart()
-// }
 
 module.exports = {
   onStart,
   onLoad,
   onPlay
-  // onRestart
 }

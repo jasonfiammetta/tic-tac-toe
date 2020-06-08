@@ -64,7 +64,7 @@ const checkWin = function () {
     if (board[i] + board[i + 3] + board[i + 6] === 3 * turn) { return true }
   }
   for (let i = 0; i < 3; i++) {
-    if (board[3 * i] + board[3 * i + 3] + board[3 * i + 6] === 3 * turn) { return true }
+    if (board[3 * i] + board[3 * i + 1] + board[3 * i + 2] === 3 * turn) { return true }
   }
   if (board[0] + board[4] + board[8] === 3 * turn) { return true }
   if (board[2] + board[4] + board[6] === 3 * turn) { return true }
@@ -73,11 +73,16 @@ const checkWin = function () {
   return false
 }
 
+const checkDraw = function () {
+  return tictactoe.board.reduce((sum, xo) => Math.abs(xo) + sum) === tictactoe.board.length
+}
+
 module.exports = {
   startGame,
   loadGame,
   playMove,
   switchTurns,
   checkWin,
+  checkDraw,
   getBoard
 }
