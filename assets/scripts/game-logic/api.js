@@ -19,7 +19,6 @@ const sendMove = function (move, over) {
 //   }
 // }
 
-
 module.exports = {
   getGames,
   createGame,

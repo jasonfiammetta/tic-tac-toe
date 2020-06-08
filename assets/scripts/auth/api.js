@@ -1,25 +1,5 @@
-const config = require('./../config')
+const config = require('./../config') // Shouldn't need this once ./../api is complete
 const store = require('./../store')
-
-const apiCall = function (method, path) {
-  return {
-    method: method,
-    path: config.apiUrl + path
-  }
-}
-
-const addHeader = function (call, token) {
-  call['headers'] = 'Authorization: Token token=' + token
-}
-
-const addBody = function (call, body, data) {
-  call['data'] = { [body]: data }
-}
-
-const ajaxCall = function (call) {
-  console.log('ajax call', call)
-  return $.ajax(call)
-}
 
 // const signUp = function (data) {
 //   const call = apiCall('POST', '/sign-up')
@@ -37,40 +17,89 @@ const ajaxCall = function (call) {
 //   // I do a new call every time and forget any data from the old one?
 //   // Maybe .call() can wipe the object's own data, in addition to doing the ajax call.
 // }
-const signUp = function (creds) {
+const signUp = function (data) {
+  console.log('credentials', data)
   const call = {
     url: config.apiUrl + '/sign-up',
     method: 'POST',
     data: {
       credentials: {
-        email: creds.email,
-        password: creds.password,
-        password_confirmation: creds.password_confirmation
+        email: data.credentials.email,
+        password: data.credentials.password,
+        password_confirmation: data.credentials.password_confirmation
       }
     }
   }
-  console.log(call)
+  console.log('call', call)
   return $.ajax(call)
 }
 
+// const logIn = function (data) {
+//   const call = apiCall('POST', '/sign-in')
+//   addBody(call, 'credentials', data.credentials)
+//   return ajaxCall(call)
+// }
+
 const logIn = function (data) {
-  const call = apiCall('POST', '/sign-in')
-  addBody(call, 'credentials', data.credentials)
-  return ajaxCall(call)
+  console.log('credentials', data)
+  const call = {
+    url: config.apiUrl + '/sign-in',
+    method: 'POST',
+    data: {
+      credentials: {
+        email: data.credentials.email,
+        password: data.credentials.password
+      }
+    }
+  }
+  console.log('call', call)
+  return $.ajax(call)
 }
 
+// const changePassword = function (data) {
+//   const call = apiCall('PATCH', '/change-password')
+//   addHeader(call, store.user.token)
+//   addBody(call, 'passwords', data.passwords)
+//   return ajaxCall(call)
+// }
 const changePassword = function (data) {
-  const call = apiCall('PATCH', 'change-password')
-  addHeader(call, store.user.token)
-  addBody(call, 'passwords', data.passwords)
-  return ajaxCall(call)
+  console.log('passwords', data)
+  console.log('token', store.token)
+  const call = {
+    url: config.apiUrl + '/change-password',
+    method: 'PATCH',
+    headers: {
+      Authorization: 'Token token=' + store.user.token
+    },
+    data: {
+      passwords: {
+        old: data.passwords.old,
+        new: data.passwords.new
+      }
+    }
+  }
+  console.log('call', call)
+  return $.ajax(call)
 }
 
-const logOut = function (data) {
-  const call = apiCall('DELETE', 'sign-out')
-  addHeader(call, store.user.token)
-  return ajaxCall(call)
+// const logOut = function (data) {
+//   const call = apiCall('DELETE', '/sign-out')
+//   addHeader(call, store.user.token)
+//   return ajaxCall(call)
+// }
+const logOut = function () {
+  const call = {
+    url: config.apiUrl + '/sign-out',
+    method: 'DELETE',
+    headers: {
+      Authorization: 'Token token=' + store.user.token
+    }
+  }
+  console.log('call', call)
+  return $.ajax(call)
 }
+
+// const watch = function()
 
 module.exports = {
   signUp,

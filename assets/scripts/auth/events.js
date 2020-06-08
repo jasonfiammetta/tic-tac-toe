@@ -1,4 +1,5 @@
 const api = require('./api.js')
+const store = require('./../store.js')
 // const ui = require('./ui.js')
 const getFormFields = require('./../../../lib/get-form-fields.js')
 
@@ -16,20 +17,28 @@ const onSignUp = function (event) {
   const data = handleForm(event)
 
   api.signUp(data)
-    .then(response => console.log('Signed up!', response))
+    .then(response => {
+      console.log('Signed up!', response)
+      store.user = response.user
+      console.log('store token', store.user.token)
+    })
     .catch(response => console.log('failed sign up', response))
-    // .then(ui.logIn)
+    // .then(controller.logIn) // Auto log in
+    // .then(ui.signUp, ui.logIn) // Say welcome new user, you're logged in now
     // .catch(ui.fail)
-
-    // then Auto log in
 }
 
 const onLogIn = function (event) {
   const data = handleForm(event)
 
   api.logIn(data)
-    .then(response => console.log('Signed in!', response))
+    .then(response => {
+      console.log('Signed in!', response)
+      store.user = response.user
+      console.log('store token', store.user.token)
+    })
     .catch(response => console.log('failed sign in', response))
+    // .then(controller.logIn)
     // .then(ui.logIn)
     // .catch(ui.fail)
 }
@@ -37,16 +46,26 @@ const onLogIn = function (event) {
 const onChangePassword = function (event) {
   const data = handleForm(event)
 
-  api.ChangePassword(data)
-    .then(response => console.log('Changed password!', response))
+  api.changePassword(data)
+    .then(response => {
+      console.log('Changed password!', response)
+      store.user = response.user
+      console.log('store token', store.user.token)
+    })
     .catch(response => console.log('failed change password', response))
     // .then(ui.changePassword)
     // .catch(ui.fail)
 }
 
 const onLogOut = function (event) {
+  event.preventDefault()
+
   api.logOut()
-    .then(response => console.log('Signed out!', response))
+    .then(response => {
+      console.log('Signed out!', response)
+      store.user = null
+      console.log('store user', store.user)
+    })
     .catch(response => console.log('failed sign out', response))
     // .then(ui.logOut)
     // .catch(ui.fail)

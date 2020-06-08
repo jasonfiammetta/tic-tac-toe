@@ -26,7 +26,7 @@ const loadGame = function (gameObject) {
   assignTurn()
 }
 
-const playTurn = function (button) {
+const playMove = function (button) {
   if (typeof button.id === 'number' && button.id < board.length && button.id >= 0) {
     board[button.id] = store.turn
     // return {index, value}
@@ -63,7 +63,7 @@ const checkWin = function () {
 module.exports = {
   startGame,
   loadGame,
-  playTurn,
+  playMove,
   switchTurns,
   restart,
   checkWin
