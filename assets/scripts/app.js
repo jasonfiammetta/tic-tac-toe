@@ -6,6 +6,8 @@
 // use require without a reference to ensure a file is bundled
 // require('./example')
 
+const gameEvents = require('./game-logic/events.js')
+
 $(() => {
-  // your JS code goes here
+  $('.board-square').on('click', gameEvents.onPlay)
 })

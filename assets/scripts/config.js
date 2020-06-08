@@ -12,6 +12,9 @@ if (window.location.hostname === 'localhost') {
   apiUrl = apiUrls.production
 }
 
+const gamePath = './tic-tac-toe.js'
+
 module.exports = {
-  apiUrl
+  apiUrl,
+  gamePath
 }
