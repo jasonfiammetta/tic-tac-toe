@@ -1,3 +1,4 @@
+const store = require('./../store')
 
 const tictactoe = {
   board: [0, 0, 0,
@@ -34,8 +35,9 @@ const getBoard = function () {
   return tictactoe.board
 }
 
-const startGame = function () {
+const startGame = function (gameObject) {
   tictactoe.reset()
+  store.game = gameObject
 }
 
 const loadGame = function (gameObject) {
@@ -74,7 +76,7 @@ const checkWin = function () {
 }
 
 const checkDraw = function () {
-  return tictactoe.board.reduce((sum, xo) => Math.abs(xo) + sum) === tictactoe.board.length
+  return tictactoe.board.reduce((sum, xo) => Math.abs(xo) + sum, 0) === tictactoe.board.length
 }
 
 module.exports = {

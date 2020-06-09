@@ -2,10 +2,12 @@
 const ui = require('./ui.js')
 const game = require('./tic-tac-toe.js')
 
-const startGame = function () {
+const startGame = function (response) {
   // Start game
   console.log('starting game')
-  game.startGame()
+  console.log('response game', response.game)
+  game.startGame(response.game)
+  ui.gameStart()
   ui.displayBoard(game.getBoard().map(xo))
 }
 

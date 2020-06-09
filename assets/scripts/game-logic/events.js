@@ -1,15 +1,23 @@
 const api = require('./api.js')
 const controller = require('./controller.js')
 
-let gameAlive = false
+// let gameAlive = false
+
+const currentGame = {
+  game: null,
+  alive: false
+}
 
 const onStart = function () {
   api.createGame()
-  // .then(controller.startGame)
-  // .catch(console.log)
+    .then(controller.startGame)
+    .catch(console.log)
+  // Gotta get the game into currentGame somehow
+  currentGame.alive = true
+}
 
-  controller.startGame()
-  gameAlive = true
+const onGetAll = function () {
+  console.log(api.getGames())
 }
 
 // load game from api
@@ -23,18 +31,23 @@ const onLoad = function (event) {
 }
 
 const onPlay = function (event) {
-  if (!gameAlive) { return }
+  if (!currentGame.alive) { return } // sloppy
   const move = event.target.id
 
   const movePlayed = controller.playMove(move)
   const over = controller.checkEnd()
   console.log('Game over?', over)
-  api.sendMove(movePlayed, over)
-  gameAlive = !over // This is sloppy
+  const moveObject = {
+    cell: movePlayed,
+    over: over
+  }
+  api.sendMove(currentGame, moveObject)
+  currentGame.alive = !over // This is sloppy
 }
 
 module.exports = {
   onStart,
+  onGetAll,
   onLoad,
   onPlay
 }

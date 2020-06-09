@@ -20,6 +20,6 @@ $(() => {
 
   $('#start-game').on('click', gameEvents.onStart)
   $('#get-all-games').on('click', gameEvents.onGetAll)
-  $('#load-game').on('click', gameEvents.onLoad)
+  $('#load-game').on('submit', gameEvents.onLoad)
   $('.board-square').on('click', gameEvents.onPlay)
 })

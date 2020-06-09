@@ -4,14 +4,10 @@ const $auth = $('#auth-message')
 const $loggedIn = $('.logged-in')
 const $loggedOut = $('.not-logged-in')
 const $allForms = $('form')
-const authMessage = function (message, success) {
+const authMessage = function (message, fail) {
   $auth.text(message)
     .removeClass()
-  if (!success) {
-    $auth.addClass('failure')
-  } else { // default
-    $auth.addClass('success')
-  }
+  !fail ? $auth.addClass('success') : $auth.addClass('fail')
 }
 
 const logIn = function (response) {
@@ -38,7 +34,7 @@ const logOut = function () {
 
 const fail = function (message) {
   console.log('auth ui failed', message)
-  authMessage('failed', false)
+  authMessage('failed', true)
 }
 
 module.exports = {
