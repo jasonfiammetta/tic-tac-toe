@@ -1,4 +1,19 @@
-const getGames = function () {}
+const api = require('./../api')
+
+// const signUp = function (data) {
+//   return api.createCall('POST', '/sign-up')
+//     .addBody('credentials', data.credentials)
+//     .callAjax()
+// }
+
+const getGames = function (over) {
+  let overPath = ''
+  if (arguments.length === 1) {
+    over ? overPath = '?over=true' : overPath = '?over=false'
+  }
+  return api.createCall('GET', '/games' + overPath)
+}
+
 const createGame = function () {}
 const getGame = function () {}
 

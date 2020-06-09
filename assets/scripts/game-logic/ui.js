@@ -1,3 +1,4 @@
+const $boardMessage = $('#board-message')
 
 const xo = function (val) {
   return ['o', '', 'x'][val + 1]
@@ -10,16 +11,18 @@ const displayBoard = function (board) {
 }
 
 const gameStart = function () {
-  $('#board-message').text('New Game!')
+  $boardMessage.text('New Game!')
+  $('.board').show()
 }
 
-const playMove = function (move) {
-  $('#' + move.index).text(move.value)
-  $('#board-message').text(`Played move in spot ${move.index}!`)
+const playMove = function (move, xo) {
+  console.log('ui playMove', move)
+  $('#' + move).text(xo)
+  $boardMessage.text(`Played ${xo} in spot ${move}!`)
 }
 
 const gameOver = function () {
-  $('#board-message').text('Game over!')
+  $boardMessage.text('Game over!')
 }
 
 module.exports = {

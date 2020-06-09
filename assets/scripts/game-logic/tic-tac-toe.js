@@ -60,6 +60,10 @@ const checkWin = function () {
   return false
 }
 
+const checkDraw = function () {
+  return tictactoe.board.reduce((sum, xo) => Math.abs(xo) + sum, 0) === tictactoe.board.length
+}
+
 module.exports = {
   startGame,
   loadGame,

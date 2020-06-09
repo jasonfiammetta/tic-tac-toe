@@ -10,7 +10,11 @@ const onStart = function () {
   game.startGame()
 }
 
-// load game
+const onGetAll = function () {
+  console.log(api.getGames())
+}
+
+// load game from api
 const onLoad = function (event) {
   // load data from api
   // const gameObject = api.getGame(event.data('id'))
@@ -45,6 +49,7 @@ const onRestart = function (event) {
 
 module.exports = {
   onStart,
+  onGetAll,
   onLoad,
   onPlay,
   onRestart
