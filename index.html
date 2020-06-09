@@ -16,16 +16,16 @@
         <h1>Tic Tac Toe</h1>
       </header>
       <section class="not-logged-in">
-        <p>Sign Up</p>
+        <h2>Sign Up</h2>
         <form id="sign-up">
-          <input type="text" name="credentials[email]" required placeholder="Email">
+          <input type="email" name="credentials[email]" required placeholder="Email">
           <input type="password" name="credentials[password]" required placeholder="Password">
           <input type="password" name="credentials[password_confirmation]" required placeholder="Password">
           <button type="submit">Sign Up</button>
         </form>
-        <p>Or Log In</p>
+        <h2>Or Log In</h2>
         <form id="log-in">
-          <input type="text" name="credentials[email]" required placeholder="Email">
+          <input type="email" name="credentials[email]" required placeholder="Email">
           <input type="password" name="credentials[password]" required placeholder="Password">
           <button type="submit">Log In</button>
         </form>
@@ -36,21 +36,29 @@
         </form> -->
       </section>
       <section class="logged-in">
-        <p>Change Password</p>
+        <h2>Change Password</h2>
         <form id="change-password">
           <input type="password" name="passwords[old]" required placeholder="Old Password">
           <input type="password" name="passwords[new]" required placeholder="New Password">
           <button type="submit">ChangePassword</button>
         </form>
-        <p>Log Out</p>
+        <h2>Log Out</h2>
         <form id="log-out">
           <button type="submit">Log out</button>
         </form>
       </section>
       <p id="auth-message"></p>
       <main>
-        <button type="button" id="start-game">Start New Game</button>
+        <section class="logged-in">
+          <button type="button" id="start-game">Start New Game</button>
+          <button type="button" id="get-all-games">Get all your Games</button>
+          <form id="load-game">
+            <input type="text" name="game[id]" required placeholder="Game ID">
+            <button type="submit">Load a Game</button>
+          </form>
+        </section>
         <div class="container board">
+        <!-- <div class="container board logged-in"> Use this when not testing-->
           <div class="row">
             <div class="col-4 board-square" id="0" value="0"> XO </div>
             <div class="col-4 board-square" id="1" value="0"> XO </div>

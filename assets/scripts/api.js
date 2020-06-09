@@ -1,29 +1,34 @@
-const config = require('./../config')
+const config = require('./config')
 
 // Build new call object
-const createCall = function (method, path) {
-  return {
-    method: method,
-    path: config.apiUrl + path
+const apiCall = {
+  call: {},
+  clear: function () {
+    this.call = {}
+  },
+  addHeader: function (token) {
+    this.call.headers = 'Authorization: Token token=' + token
+    return this
+  },
+  addBody: function (bodyName, data) {
+    this.call.data = {
+      [bodyName]: data
+    }
+    return this
+  },
+  callAjax: function () {
+    // console.log('apiCall', this.call)
+    return $.ajax(this.call)
   }
 }
 
-const addHeader = function (call, token) {
-  call['headers'] = 'Authorization: Token token=' + token
-}
-
-const addBody = function (call, body, data) {
-  call['data'] = { [body]: data }
-}
-
-// Use ajax call on gameObject
-const apiCall = function (call) {
-  return $.ajax(apiCall)
+const createCall = function (method, path) {
+  apiCall.clear()
+  apiCall.call.method = method
+  apiCall.call.url = config.apiUrl + path
+  return apiCall
 }
 
 module.exports = {
-  createCall,
-  addHeader,
-  addBody,
-  apiCall
+  createCall
 }

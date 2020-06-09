@@ -11,7 +11,7 @@ const gameEvents = require('./game-logic/events.js')
 
 $(() => {
   $('.logged-in').hide()
-  $('.game').hide()
+  $('.board').hide()
 
   $('#sign-up').on('submit', authEvents.onSignUp)
   $('#log-in').on('submit', authEvents.onLogIn)
@@ -19,5 +19,7 @@ $(() => {
   $('#log-out').on('submit', authEvents.onLogOut)
 
   $('#start-game').on('click', gameEvents.onStart)
+  $('#get-all-games').on('click', gameEvents.onGetAll)
+  $('#load-game').on('click', gameEvents.onLoad)
   $('.board-square').on('click', gameEvents.onPlay)
 })
