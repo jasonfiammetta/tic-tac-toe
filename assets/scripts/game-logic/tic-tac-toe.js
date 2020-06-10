@@ -1,5 +1,3 @@
-const store = require('./../store')
-
 const tictactoe = {
   board: [0, 0, 0,
     0, 0, 0,
@@ -37,7 +35,7 @@ const getBoard = function () {
 
 const startGame = function (gameObject) {
   tictactoe.reset()
-  store.game = gameObject
+  return gameObject
 }
 
 const loadGame = function (gameObject) {
