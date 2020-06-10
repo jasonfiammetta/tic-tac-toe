@@ -2,8 +2,8 @@
 
 let apiUrl
 const apiUrls = {
-  production: '<replace-with-heroku-url>',
-  development: 'http://localhost:4741'
+  development: 'https://tic-tac-toe-wdi.herokuapp.com',
+  production: 'https://tic-tac-toe-wdi-production.herokuapp.com'
 }
 
 if (window.location.hostname === 'localhost') {
@@ -12,6 +12,9 @@ if (window.location.hostname === 'localhost') {
   apiUrl = apiUrls.production
 }
 
+// const gamePath = './tic-tac-toe.js'
+
 module.exports = {
   apiUrl
+  // gamePath
 }

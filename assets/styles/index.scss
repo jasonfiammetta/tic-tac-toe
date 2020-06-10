@@ -1,1 +1,22 @@
 @import '~bootstrap/scss/bootstrap';
+
+$light-blue: #ccf;
+$green: #2f2;
+$red: #f22;
+
+body {
+  margin: 10px;
+}
+
+.board-square {
+  background-color: $light-blue;
+  padding: 1em;
+}
+
+.success {
+  color: $green;
+}
+
+.failure {
+  color: $red;
+}
