@@ -1,16 +1,33 @@
 @import '~bootstrap/scss/bootstrap';
 
 $light-blue: #ccf;
+$dark-blue: #55f;
 $green: #2f2;
 $red: #f22;
 
+$primary-color: #9a60b7;
+$secondary-color-a: #6f6dbe;
+$secondary-color-b: #e97596;
+$complementary-color: #fdfe7f;
+
+$k-blue: #199292;
+$k-pieces: #098e11;
+
+// Make X and O different colors
+
 body {
+  background-color: adjust-color($secondary-color-b, $lightness: 20%);
   margin: 10px;
 }
 
 .board-square {
-  background-color: $light-blue;
+  background-color: adjust-color($secondary-color-a, $lightness: 20%);
+  border: 2px solid $secondary-color-a;
+  color: $complementary-color;
+  height: 120px;
+  // width: 200px;
   padding: 1em;
+  width: auto;
 }
 
 .success {
