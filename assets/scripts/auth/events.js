@@ -1,8 +1,8 @@
 const api = require('./api.js')
-// const store = require('./../store.js')
 const ui = require('./ui.js')
 const getFormFields = require('./../../../lib/get-form-fields.js')
 
+// shouldn't need this twice, but if I put it in ./../api.js then event.preventDefault doesn't trigger
 const handleForm = function (event) {
   event.preventDefault()
 
@@ -50,7 +50,8 @@ const onChangePassword = function (event) {
 }
 
 const onLogOut = function (event) {
-  event.preventDefault()
+  // event.preventDefault()
+  handleForm(event)
 
   api.logOut()
     .then(ui.logOut)

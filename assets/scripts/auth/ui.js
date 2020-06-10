@@ -3,6 +3,7 @@ const store = require('./../store.js')
 const $auth = $('#auth-message')
 const $loggedIn = $('.logged-in')
 const $loggedOut = $('.not-logged-in')
+const $board = $('.board')
 const $allForms = $('form')
 const authMessage = function (message, fail) {
   $auth.text(message)
@@ -29,6 +30,7 @@ const logOut = function () {
   console.log('empty user', store.user)
   $loggedOut.show()
   $loggedIn.hide()
+  $board.hide()
   $allForms.trigger('reset')
 }
 

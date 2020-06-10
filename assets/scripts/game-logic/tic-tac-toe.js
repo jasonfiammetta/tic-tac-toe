@@ -1,5 +1,3 @@
-const store = require('./../store')
-
 const tictactoe = {
   board: [0, 0, 0,
     0, 0, 0,
@@ -19,30 +17,22 @@ const tictactoe = {
   }
 }
 
-// Parse cells from game object
-const parseCells = function (gameObject) {
-  tictactoe.board = gameObject.game.cells.map(c => {
-    return c ? c === 'x' ? 1 : -1 : 0 // Who would write this? Who would actually write this? Go to bed.
-  })
-}
-
 // Assume player X is always the first player to start the game
 const assignTurn = function () {
-  tictactoe.turn = tictactoe.board.reduce((sum, spot) => sum + spot) % 2 === 0 ? 1 : 0 // redo this too
+  console.log('board in assignTurn', tictactoe.board)
+  tictactoe.turn = tictactoe.board.reduce((sum, spot) => sum + spot, 0) % 2 === 0 ? 1 : -1 // redo this too
+  console.log(tictactoe.turn)
 }
 
-const getBoard = function () {
-  return tictactoe.board
-}
-
-const startGame = function (gameObject) {
+const startGame = function () {
   tictactoe.reset()
-  store.game = gameObject
+  return tictactoe
 }
 
-const loadGame = function (gameObject) {
-  parseCells(gameObject)
+const loadGame = function (board) {
+  tictactoe.board = board
   assignTurn()
+  return tictactoe
 }
 
 const playMove = function (move) {
@@ -51,7 +41,7 @@ const playMove = function (move) {
       tictactoe.playMove(move)
     }
   }
-  return tictactoe.turn
+  return tictactoe
 }
 
 const switchTurns = function () {
@@ -85,6 +75,6 @@ module.exports = {
   playMove,
   switchTurns,
   checkWin,
-  checkDraw,
-  getBoard
+  checkDraw
+  // getBoard
 }

@@ -21,5 +21,7 @@ $(() => {
   $('#start-game').on('click', gameEvents.onStart)
   $('#get-all-games').on('click', gameEvents.onGetAll)
   $('#load-game').on('submit', gameEvents.onLoad)
+  $('#delete-game').on('submit', gameEvents.onDelete)
+
   $('.board-square').on('click', gameEvents.onPlay)
 })

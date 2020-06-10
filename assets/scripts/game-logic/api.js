@@ -1,12 +1,6 @@
 const api = require('./../api')
 const store = require('./../store')
 
-// const signUp = function (data) {
-//   return api.createCall('POST', '/sign-up')
-//     .addBody('credentials', data.credentials)
-//     .callAjax()
-// }
-
 const getGames = function (over) {
   let overPath = ''
   if (arguments.length === 1) {
@@ -23,30 +17,24 @@ const createGame = function () {
     .callAjax()
 }
 const getGame = function (id) {
-  return api.createCall('GET', '/games?id=' + id)
+  return api.createCall('GET', '/games/' + id)
     .addHeader(store.user.token)
     .callAjax()
 }
 
-const deleteGame = function (id) {}
+const deleteGame = function (id) {
+  return api.createCall('DELETE', '/games/' + id)
+    .addHeader(store.user.token)
+    .callAjax()
+}
 const watchGame = function (id) {}
 
 const sendMove = function (id, moveObject) {
-  return api.createCall('PATCH', '/games?id=' + id)
+  return api.createCall('PATCH', '/games/' + id)
     .addHeader(store.user.token)
     .addBody('game', moveObject)
     .callAjax()
 }
-
-// {
-//   "game": {
-//     "cell": {
-//       "index": 0,
-//       "value": "x"
-//     },
-//     "over": false
-//   }
-// }
 
 module.exports = {
   getGames,

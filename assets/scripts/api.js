@@ -1,4 +1,5 @@
 const config = require('./config')
+// const getFormFields = require('./../../lib/get-form-fields.js')
 
 // Build new call object
 const apiCall = {
@@ -31,6 +32,19 @@ const createCall = function (method, path) {
   return apiCall
 }
 
+// const handleForm = function (event) {
+//   // console.log('HEEEEEEEEELP')
+//   // console.log('epd', event.preventDefault())
+//   // console.log('see me?')
+//
+//   console.log(event)
+//   const formFields = getFormFields(event.target)
+//   console.log('form', formFields)
+//
+//   return formFields
+// }
+
 module.exports = {
   createCall
+  // handleForm
 }
