@@ -1,5 +1,18 @@
 const api = require('./api.js')
 const controller = require('./controller.js')
+const ui = require('./ui.js')
+const getFormFields = require('./../../../lib/get-form-fields.js')
+
+// shouldn't need this twice, but if I put it in ./../api.js then event.preventDefault doesn't trigger
+const handleForm = function (event) {
+  event.preventDefault()
+
+  console.log(event)
+  const formFields = getFormFields(event.target)
+  console.log('form', formFields)
+
+  return formFields
+}
 
 const onStart = function () {
   api.createGame()
@@ -12,30 +25,36 @@ const onGetAll = function () {
 }
 
 const onLoad = function (event) {
-  api.getGame(event.data('game-id'))
-    .then(controller.loadGame) // load gameObject
+  const data = handleForm(event)
+  console.log(data)
+
+  api.getGame(data.game.id)
+    .then(controller.loadGame)
     .catch(console.log)
 }
 
 const onPlay = function (event) {
-  if (!controller.currentGame.alive) { return } // sloppy
-  const gameID = controller.currentGame.game._id
   const move = event.target.id
-  const movePlayed = controller.playMove(move)
-  const over = controller.checkEnd()
-  console.log('Game over?', over)
-  const moveObject = {
-    cell: movePlayed,
-    over: over
+  const moveResponse = controller.playMove(move)
+  if (moveResponse) {
+    api.sendMove(moveResponse.gameID, moveResponse.moveObject)
+    // This line should really be in controller somehow
+    moveResponse.moveObject.over ? controller.endGame() : controller.switchTurns()
   }
-  // console.log(controller.currentGame)
-  api.sendMove(gameID, moveObject)
-  controller.currentGame.alive = !over // This is sloppy
+}
+
+const onDelete = function (event) {
+  const data = handleForm(event)
+  console.log(data)
+
+  api.deleteGame(data.game.id)
+    .then(ui.deleteGame)
 }
 
 module.exports = {
   onStart,
   onGetAll,
   onLoad,
+  onDelete,
   onPlay
 }
