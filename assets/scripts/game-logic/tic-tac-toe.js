@@ -20,7 +20,7 @@ const tictactoe = {
 // Assume player X is always the first player to start the game
 const assignTurn = function () {
   console.log('board in assignTurn', tictactoe.board)
-  tictactoe.turn = tictactoe.board.reduce((sum, spot) => sum + spot, 0) % 2 === 0 ? 1 : -1 // redo this too
+  tictactoe.turn = tictactoe.board.reduce((sum, spot) => sum + spot, 0) % 2 === 0 ? 1 : -1
   console.log(tictactoe.turn)
 }
 
@@ -76,5 +76,4 @@ module.exports = {
   switchTurns,
   checkWin,
   checkDraw
-  // getBoard
 }

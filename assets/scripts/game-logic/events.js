@@ -1,6 +1,6 @@
 const api = require('./api.js')
 const controller = require('./controller.js')
-const ui = require('./ui.js')
+// const ui = require('./ui.js')
 const getFormFields = require('./../../../lib/get-form-fields.js')
 
 // shouldn't need this twice, but if I put it in ./../api.js then event.preventDefault doesn't trigger
@@ -30,7 +30,7 @@ const onLoad = function (event) {
 
   api.getGame(data.game.id)
     .then(controller.loadGame)
-    .catch(console.log)
+    // .catch(ui.loadFailed)
 }
 
 const onPlay = function (event) {
@@ -38,8 +38,7 @@ const onPlay = function (event) {
   const moveResponse = controller.playMove(move)
   if (moveResponse) {
     api.sendMove(moveResponse.gameID, moveResponse.moveObject)
-    // This line should really be in controller somehow
-    moveResponse.moveObject.over ? controller.endGame() : controller.switchTurns()
+    controller.afterMove(moveResponse.moveObject.over)
   }
 }
 
@@ -48,7 +47,8 @@ const onDelete = function (event) {
   console.log(data)
 
   api.deleteGame(data.game.id)
-    .then(ui.deleteGame)
+    .then((response) => controller.deleteGame(response, data.game.id)) // Need to send the id too because the docs lied again
+    .catch(console.log)
 }
 
 module.exports = {

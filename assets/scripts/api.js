@@ -33,9 +33,7 @@ const createCall = function (method, path) {
 }
 
 // const handleForm = function (event) {
-//   // console.log('HEEEEEEEEELP')
 //   // console.log('epd', event.preventDefault())
-//   // console.log('see me?')
 //
 //   console.log(event)
 //   const formFields = getFormFields(event.target)

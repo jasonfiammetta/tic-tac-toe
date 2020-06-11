@@ -1,5 +1,6 @@
 const api = require('./api.js')
-const ui = require('./ui.js')
+// const ui = require('./ui.js')
+const controller = require('./controller.js')
 const getFormFields = require('./../../../lib/get-form-fields.js')
 
 // shouldn't need this twice, but if I put it in ./../api.js then event.preventDefault doesn't trigger
@@ -15,22 +16,22 @@ const handleForm = function (event) {
 
 const onSignUp = function (event) {
   const data = handleForm(event)
-
+  console.log(data)
   api.signUp(data)
+    .then(controller.signUp)
     .then(response => {
-      console.log('Signed up!', response)
+      delete data.credentials.password_confirmation
+      return api.logIn(data)
     })
-    .catch(response => console.log('failed sign up', response))
-    // .then(controller.logIn) // Auto log in
-    // .then(ui.signUp, ui.logIn) // Say welcome new user, you're logged in now
-    // .catch(ui.fail)
+    .then(controller.logIn)
+    .catch(response => console.log('failed sign up and log in combined', response))
 }
 
 const onLogIn = function (event) {
   const data = handleForm(event)
 
   api.logIn(data)
-    .then(ui.logIn)
+    .then(controller.logIn)
     .catch(response => console.log('failed sign in', response))
     // .then(controller.logIn)
     // .then(ui.logIn)
@@ -54,7 +55,7 @@ const onLogOut = function (event) {
   handleForm(event)
 
   api.logOut()
-    .then(ui.logOut)
+    .then(controller.logOut)
     .catch(response => console.log('failed sign out', response))
 }
 
