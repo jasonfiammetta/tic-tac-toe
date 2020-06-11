@@ -1,5 +1,3 @@
-// const store = require('./../store.js')
-
 const $auth = $('#auth-message')
 const $loggedIn = $('.logged-in')
 const $loggedOut = $('.not-logged-in')

@@ -25,8 +25,8 @@ const currentUser = {
 }
 
 const signUp = function () {
-  // ui.signUp()
   currentUser.signUp()
+  // ui.signUp()
 }
 
 const logIn = function (response) {
