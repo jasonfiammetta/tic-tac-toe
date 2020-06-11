@@ -57,7 +57,7 @@ const startGame = function (response) {
 
 // check that this function is only in one file later
 const xo = function (val) {
-  return ['o', '', 'x'][val + 1]
+  return ['O', ' ', 'X'][val + 1]
 }
 
 const playMove = function (move) {

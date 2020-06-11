@@ -9,7 +9,7 @@ const displayBoard = function (board) {
 }
 
 const xo = function (val) {
-  return ['o', '', 'x'][val + 1]
+  return ['O', ' ', 'X'][val + 1]
 }
 
 // Really consider just using gameLoad
