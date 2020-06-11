@@ -1,5 +1,7 @@
 @import '~bootstrap/scss/bootstrap';
 
+// sass-lint:disable no-ids
+
 $light-blue: #ccf;
 $dark-blue: #55f;
 $green: #2f2;
@@ -16,18 +18,40 @@ $k-pieces: #098e11;
 // Make X and O different colors
 
 body {
-  background-color: adjust-color($secondary-color-b, $lightness: 20%);
   margin: 10px;
+  background-color: adjust-color($secondary-color-b, $lightness: 20%);
 }
 
+.wrapper {
+  display: flex;
+  // align-items: stretch;
+  width: 100%;
+}
+
+#sidebar {
+  min-width: 250px;
+  max-width: 250px;
+  min-height: 100vh;
+}
+
+// sass-lint:disable force-element-nesting
+#sidebar.active {
+  margin-left: -250px;
+}
+
+
 .board-square {
-  background-color: adjust-color($secondary-color-a, $lightness: 20%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border: 2px solid $secondary-color-a;
-  color: $complementary-color;
-  height: 120px;
-  // width: 200px;
+  background-color: adjust-color($secondary-color-a, $lightness: 20%);
   padding: 1em;
-  width: auto;
+  // width: 200px;
+  height: 120px;
+  // width: auto;
+  color: $complementary-color;
+  font-size: 40px;
 }
 
 .success {

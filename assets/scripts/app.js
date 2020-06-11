@@ -24,4 +24,9 @@ $(() => {
   $('#delete-game').on('submit', gameEvents.onDelete)
 
   $('.board-square').on('click', gameEvents.onPlay)
+
+  $('#sidebar-collapse').on('click', () => {
+    $('#sidebar').toggleClass('active')
+    console.log($('#sidebar').hasClass('active'))
+  })
 })
