@@ -19,6 +19,10 @@ const apiCall = {
     }
     return this
   },
+  addSuccess: function (fun, data) {
+    this.call.success = fun(data)
+    return this
+  },
   callAjax: function () {
     console.log('apiCall', this.call)
     return $.ajax(this.call)

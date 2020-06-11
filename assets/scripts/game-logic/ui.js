@@ -44,11 +44,16 @@ const deleteGame = function () {
   $allForms.trigger('reset')
 }
 
+const failed = function (message) {
+  $boardMessage.text(message)
+}
+
 module.exports = {
   displayBoard,
   gameStart,
   playMove,
   gameOver,
   loadGame,
-  deleteGame
+  deleteGame,
+  failed
 }

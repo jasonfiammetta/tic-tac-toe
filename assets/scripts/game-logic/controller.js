@@ -69,15 +69,30 @@ const playMove = function (move) {
 
 const loadGame = function (response) {
   console.log('loading game')
+  if (!response.game[0]) { return ui.failed('Could not find game.') }
   // console.log('response game', response.game)
-  console.log('response game [0]', response.game[0])
+  // console.log('response game [0]', response.game[0]) // This one
   currentGame.load(response.game[0])
   game.loadGame(currentGame.boardState)
   ui.loadGame(currentGame.boardState)
 }
 
+const deleteGame = function (response, id) {
+  console.log('deleting game') // , response) // response is undefined
+  // console.log('response game', response.game)
+  // console.log('response game [0]', response.game[0])
+  if (id === currentGame.gameID) {
+    endGame()
+  }
+  ui.deleteGame()
+}
+
 const checkEnd = function () {
   return game.checkWin() || game.checkDraw()
+}
+
+const afterMove = function (over) {
+  over ? endGame() : switchTurns()
 }
 
 const switchTurns = function () {
@@ -95,8 +110,8 @@ module.exports = {
   startGame,
   playMove,
   loadGame,
+  deleteGame,
   checkEnd,
-  switchTurns,
+  afterMove,
   endGame
-  // currentGame
 }

@@ -4,6 +4,7 @@ const store = require('./../store')
 const signUp = function (data) {
   return api.createCall('POST', '/sign-up')
     .addBody('credentials', data.credentials)
+    // .addSuccess(logIn, data)
     .callAjax()
 }
 
