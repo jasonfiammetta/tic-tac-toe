@@ -1,6 +1,6 @@
 const api = require('./api.js')
 const controller = require('./controller.js')
-// const ui = require('./ui.js')
+const ui = require('./ui.js') // shouldn't need this
 const getFormFields = require('./../../../lib/get-form-fields.js')
 
 // shouldn't need this twice, but if I put it in ./../api.js then event.preventDefault doesn't trigger
@@ -21,7 +21,17 @@ const onStart = function () {
 }
 
 const onGetAll = function () {
-  console.log(api.getGames())
+  // console.log(api.getGames())
+  ui.clearOldGames() // Maybe check if api can even get the games first
+  api.getGames()
+    .then(ui.addOldGames)
+  // console.log(api.getGames().games)
+  // api.getGames().games.forEach(ui.addOldGame) // pass to controller instead of ui directly
+  // <li class="old-game">
+  //   <p>Time or date created, or number'th game</p>
+  //   <button type="button" class="btn">Load game</button>
+  //   <button type="button" class="btn">Delete game</button>
+  // </li>
 }
 
 const onLoad = function (event) {

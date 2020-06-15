@@ -1,6 +1,7 @@
 const $boardMessage = $('#board-message')
 const $board = $('.board')
 const $allForms = $('form')
+const $oldGames = $('#old-games')
 
 const displayBoard = function (board) {
   for (let id = 0; id < board.length; id++) {
@@ -9,7 +10,7 @@ const displayBoard = function (board) {
 }
 
 const xo = function (val) {
-  return ['O', ' ', 'X'][val + 1]
+  return ['o', ' ', 'x'][val + 1]
 }
 
 // Really consider just using gameLoad
@@ -44,6 +45,24 @@ const deleteGame = function () {
   $allForms.trigger('reset')
 }
 
+const clearOldGames = function () {
+  $oldGames.html('')
+}
+
+const addOldGame = function (game) {
+  $oldGames.append(`<li class="old-game">
+    <p>${game.updatedAt}</p>
+    <button type="button" class="btn" data-id="${game._id}">Load game</button>
+    <button type="button" class="btn" data-id="${game._id}">Delete game</button>
+  </li>`)
+}
+
+const addOldGames = function (gameObject) {
+  console.log(gameObject)
+  console.log(gameObject.games)
+  gameObject.games.forEach(addOldGame)
+}
+
 const failed = function (message) {
   $boardMessage.text(message)
 }
@@ -55,5 +74,7 @@ module.exports = {
   gameOver,
   loadGame,
   deleteGame,
+  clearOldGames,
+  addOldGames,
   failed
 }
