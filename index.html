@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-      <title>Example</title>
+      <title>Tic Tac Toe</title>
       <meta name="viewport" content="width=device-width, initial-scale=1">
 
       <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
@@ -54,7 +54,6 @@
         <section id="sidebar" class="hidden">
           <section id="account-options">
             <h3>Account Options</h3>
-            <!-- move change password and log out here -->
             <section class="logged-in">
               <h4>Change Password</h4>
               <form id="change-password">
@@ -62,7 +61,7 @@
                 <input type="password" name="passwords[new]" required placeholder="New Password">
                 <button type="submit" class="btn">ChangePassword</button>
               </form>
-              <h4>Log Out</h4>
+              <!-- <h4>Log Out</h4> -->
               <form id="log-out">
                 <button type="submit" class="btn">Log out</button>
               </form>
@@ -72,11 +71,11 @@
             <!-- move Get all games, load game, and delete game in here -->
             <ul id="old-games"> <!-- Use this id to attach event listeners to li children -->
               <!-- give each li its own load and delete button -->
-              <li class="old-game">
+              <!-- <li class="old-game">
                 <p>Time or date created, or number'th game</p>
                 <button type="button" class="btn">Load game</button>
                 <button type="button" class="btn">Delete game</button>
-              </li>
+              </li> -->
             </ul>
           </section>
         </section>

@@ -16,6 +16,10 @@ $transparent: rgba(0, 0, 0, .15);
 
 // Make X and O different colors?
 
+header {
+  text-align: center;
+}
+
 body {
   margin: 10px;
   background-color: adjust-color($secondary-color-b, $lightness: 20%);
@@ -50,8 +54,8 @@ body {
 .board {
   margin: auto;
 
-  max-width: calc(100vh - 75px);
-  max-height: calc(100vh - 75px);
+  // max-width: calc(100vh - 75px);
+  // max-height: calc(100vh - 75px);
 
 }
 
