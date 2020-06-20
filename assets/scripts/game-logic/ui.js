@@ -52,8 +52,8 @@ const clearOldGames = function () {
 const addOldGame = function (game) {
   $oldGames.append(`<li class="old-game">
     <p>${game.updatedAt}</p>
-    <button type="button" class="btn" data-id="${game._id}">Load game</button>
-    <button type="button" class="btn" data-id="${game._id}">Delete game</button>
+    <button type="button" class="load btn" data-gameID="${game._id}">Load game</button>
+    <button type="button" class="delete btn" data-gameID="${game._id}">Delete game</button>
   </li>`)
 }
 
@@ -64,6 +64,7 @@ const addOldGames = function (gameObject) {
 }
 
 const failed = function (message) {
+  $allForms.trigger('reset')
   $boardMessage.text(message)
 }
 

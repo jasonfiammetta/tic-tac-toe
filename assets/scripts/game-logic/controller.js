@@ -77,8 +77,8 @@ const loadGame = function (response) {
   ui.loadGame(currentGame.boardState)
 }
 
-const deleteGame = function (response, id) {
-  console.log('deleting game') // , response) // response is undefined
+const deleteGame = function (id) {
+  console.log('deleting game')
   if (id === currentGame.gameID) {
     endGame()
   }

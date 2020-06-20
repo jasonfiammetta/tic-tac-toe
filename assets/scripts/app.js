@@ -28,4 +28,6 @@ $(() => {
   $('#sidebar-collapse').on('click', () => {
     $('#sidebar').toggleClass('hidden')
   })
+
+  $('#old-games').on('click', 'li', gameEvents.onGameList)
 })

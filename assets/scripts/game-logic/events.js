@@ -25,13 +25,6 @@ const onGetAll = function () {
   ui.clearOldGames() // Maybe check if api can even get the games first
   api.getGames()
     .then(ui.addOldGames)
-  // console.log(api.getGames().games)
-  // api.getGames().games.forEach(ui.addOldGame) // pass to controller instead of ui directly
-  // <li class="old-game">
-  //   <p>Time or date created, or number'th game</p>
-  //   <button type="button" class="btn">Load game</button>
-  //   <button type="button" class="btn">Delete game</button>
-  // </li>
 }
 
 const onLoad = function (event) {
@@ -57,14 +50,36 @@ const onDelete = function (event) {
   console.log(data)
 
   api.deleteGame(data.game.id)
-    .then((response) => controller.deleteGame(response, data.game.id)) // Need to send the id too because the docs lied again
+    .then((response) => controller.deleteGame(data.game.id))
     .catch(console.log)
+}
+
+const onGameList = function (event) {
+  console.log('gameList event', event)
+  console.log('gameList event target', event.target)
+  // console.log('gameList gameID', event.target.data('gameID'))
+  // console.log('has class load?', event.target.hasClass('load'))
+  // console.log('has class delete?', event.target.hasClass('delete'))
+  console.log(event.target.getAttribute('data-gameid'))
+  console.log(event.target.getAttribute('class'))
+
+  // fix thisss Don't call the api again. Maybe we should just be passing game data to the controller.
+  if (event.target.getAttribute('class') === 'load btn') {
+    api.getGame(event.target.getAttribute('data-gameid'))
+      .then(controller.loadGame)
+  }
+  // This is so brittle, fix iiit
+  if (event.target.getAttribute('class') === 'delete btn') {
+    api.deleteGame(event.target.getAttribute('data-gameid'))
+      .then(controller.deleteGame)
+  }
 }
 
 module.exports = {
   onStart,
   onGetAll,
   onLoad,
+  onPlay,
   onDelete,
-  onPlay
+  onGameList
 }
