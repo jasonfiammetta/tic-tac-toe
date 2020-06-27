@@ -9,6 +9,14 @@ const displayBoard = function (board) {
   }
 }
 
+const clearBoard = function () {
+  displayBoard(
+    [0, 0, 0,
+      0, 0, 0,
+      0, 0, 0]
+  )
+}
+
 const xo = function (val) {
   return ['o', ' ', 'x'][val + 1]
 }
@@ -16,21 +24,28 @@ const xo = function (val) {
 // Really consider just using gameLoad
 const gameStart = function () {
   $boardMessage.text('New Game!') // Would have to find a way to pass the right message if I did
-  displayBoard([0, 0, 0, // bit sloppy
-    0, 0, 0,
-    0, 0, 0])
+  clearBoard()
   $board.show()
 }
 
-const playMove = function (move, xo) {
+const playMove = function (move, turn) {
   console.log('ui playMove', move)
-  $('#' + move).text(xo)
-  $boardMessage.text(`Played ${xo} in spot ${move}!`)
+  const xoturn = xo(turn)
+  $('#' + move).text(xoturn)
+  $boardMessage.text(`Played ${xoturn} in spot ${move}!`)
 }
 
-const gameOver = function () {
+const gameOver = function (winner) {
   // cross line for winner if there is one
-  $boardMessage.text('Game over!')
+  let winString
+  if (winner === 'x') {
+    winString = 'X wins!'
+  } else if (winner === 'o') {
+    winString = 'O wins!'
+  } else {
+    winString = 'It\'s a draw!'
+  }
+  $boardMessage.text('Game over! ') // + winString)
 }
 
 const loadGame = function (board) {
@@ -41,6 +56,7 @@ const loadGame = function (board) {
 }
 
 const deleteGame = function () {
+  clearBoard()
   $boardMessage.text('Game deleted!')
   $allForms.trigger('reset')
 }
@@ -63,6 +79,11 @@ const addOldGames = function (gameObject) {
   gameObject.games.forEach(addOldGame)
 }
 
+const switchTurns = function () {
+  // flip a switch
+  // $switch.toggleclass('flip')
+}
+
 const failed = function (message) {
   $allForms.trigger('reset')
   $boardMessage.text(message)
@@ -77,5 +98,6 @@ module.exports = {
   deleteGame,
   clearOldGames,
   addOldGames,
+  switchTurns,
   failed
 }

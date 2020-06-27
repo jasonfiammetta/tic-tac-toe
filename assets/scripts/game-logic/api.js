@@ -27,13 +27,26 @@ const deleteGame = function (id) {
     .addHeader(store.user.token)
     .callAjax()
 }
-const watchGame = function (id) {}
 
-const sendMove = function (id, moveObject) {
+const sendMove = function (id, move, turn, over) {
   return api.createCall('PATCH', '/games/' + id)
     .addHeader(store.user.token)
-    .addBody('game', moveObject)
+    .addBody('game', buildMove(move, turn, over))
     .callAjax()
+}
+
+const buildMove = function (move, turn, over) {
+  return {
+    cell: {
+      index: move,
+      value: xo(turn)
+    },
+    over: over
+  }
+}
+
+const xo = function (val) {
+  return ['o', ' ', 'x'][val + 1]
 }
 
 module.exports = {
@@ -41,6 +54,5 @@ module.exports = {
   createGame,
   getGame,
   sendMove,
-  deleteGame,
-  watchGame
+  deleteGame
 }
