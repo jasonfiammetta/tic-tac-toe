@@ -26,29 +26,24 @@ const assignTurn = function () {
 
 const startGame = function () {
   tictactoe.reset()
-  return tictactoe
 }
 
 const loadGame = function (board) {
   tictactoe.board = board
   assignTurn()
-  return tictactoe
 }
 
 const playMove = function (move) {
-  if (move >= 0 && move < tictactoe.board.length) {
-    if (tictactoe.board[move] === 0) {
-      tictactoe.playMove(move)
-    }
+  if (move >= 0 && move < tictactoe.board.length &&
+      tictactoe.board[move] === 0) {
+    tictactoe.playMove(move)
   }
-  return tictactoe
 }
 
 const switchTurns = function () {
   tictactoe.switchTurns()
 }
 
-// rewrite for boardSize = config.size
 const checkWin = function () {
   const board = tictactoe.board
   const turn = tictactoe.turn
@@ -61,15 +56,24 @@ const checkWin = function () {
   if (board[0] + board[4] + board[8] === 3 * turn) { return true }
   if (board[2] + board[4] + board[6] === 3 * turn) { return true }
 
+  // const winArray = [
+  //   [0, 1, 2], [3, 4, 5], [6, 7, 8],
+  //   [0, 3, 6], [1, 4, 7], [2, 5, 8],
+  //   [0, 4, 8], [2, 4, 6]
+  // ]
+  // winArray.map(threeInARow => board[])
+
   // No winner
   return false
 }
 
 const checkDraw = function () {
-  return tictactoe.board.reduce((sum, xo) => Math.abs(xo) + sum, 0) === tictactoe.board.length
+  // return tictactoe.board.reduce((sum, xo) => Math.abs(xo) + sum, 0) === tictactoe.board.length
+  return tictactoe.board.every(xo => xo !== 0)
 }
 
 module.exports = {
+  tictactoe,
   startGame,
   loadGame,
   playMove,

@@ -1,107 +1,92 @@
 const ui = require('./ui.js')
 const game = require('./tic-tac-toe.js')
 
-const currentGame = {
-  boardState: null,
-  turn: null,
+const controller = {
+  // game: game.tictactoe,
   gameID: null,
-  alive: false,
-  start: function (gameObject) { // Consider deleting and only using load
-    this.boardState = parseCells(gameObject.cells)
-    this.gameID = gameObject._id
-    this.alive = true
+  over: true,
+  start: function (id) {
+    this.gameID = id
+    this.over = false
+    // this.game.reset()
+    game.startGame()
   },
-  load: function (gameObject) {
-    this.boardState = parseCells(gameObject.cells)
-    this.gameID = gameObject._id
-    this.alive = !gameObject.over
-  },
-  getGame: function (tictactoe) {
-    this.boardState = tictactoe.board
-    this.turn = tictactoe.turn
-  },
-  moveResponse: function (move, over) {
-    return {
-      gameID: this.gameID,
-      moveObject: {
-        cell: {
-          index: move,
-          value: xo(this.turn)
-        },
-        over: over
-      }
-    }
+  load: function (id, board, over) {
+    this.gameID = id
+    this.over = over
+    game.loadGame(board)
   },
   end: function () {
-    this.game = null
+    // this.game = null
     this.gameID = null
-    this.alive = false
+    this.over = true
+    console.log('controller.end', this.over)
   }
 }
 
-// Parse cells from game object
-const parseCells = function (cells) {
-  return cells.map(c => {
-    return c ? c === 'x' ? 1 : -1 : 0
-  })
-}
-
-const startGame = function (response) {
-  // Start game
+const startGame = function (id) {
   console.log('starting game')
-  console.log('response game', response.game)
-  currentGame.start(response.game)
-  game.startGame()
+  controller.start(id)
+  // game.startGame()
   ui.gameStart()
 }
 
-// check that this function is only in one file later
-const xo = function (val) {
-  return ['o', ' ', 'x'][val + 1]
-}
-
 const playMove = function (move) {
-  if (!currentGame.alive || currentGame.boardState[move] !== 0) { return }
-  currentGame.getGame(game.playMove(move))
-  ui.playMove(move, xo(currentGame.turn))
-  return currentGame.moveResponse(move, checkEnd())
+  console.log(controller.over)
+  if (controller.over || game.tictactoe.board[move] !== 0) { return }
+  game.playMove(move)
+  ui.playMove(move, game.tictactoe.turn)
+  return {
+    gameID: controller.gameID,
+    move: move,
+    turn: game.tictactoe.turn,
+    over: checkEnd()
+  }
 }
 
-const loadGame = function (response) {
-  console.log('loading game')
-  if (!response.game[0]) { return ui.failed('Could not find game.') }
-  // console.log('response game', response.game)
-  // console.log('response game [0]', response.game[0]) // This one
-  currentGame.load(response.game[0])
-  game.loadGame(currentGame.boardState)
-  ui.loadGame(currentGame.boardState)
+const loadGame = function (gameState) {
+  console.log('loading game', gameState)
+  controller.load(gameState.id, gameState.board, gameState.over)
+  ui.loadGame(gameState.board)
 }
 
 const deleteGame = function (id) {
   console.log('deleting game')
-  if (id === currentGame.gameID) {
+  if (id === controller.gameID) {
     endGame()
+    ui.deleteGame()
   }
-  ui.deleteGame()
+  // ui.refresh()
 }
 
 const checkEnd = function () {
-  return game.checkWin() || game.checkDraw()
+  const winner = game.checkWin()
+  return !!winner || game.checkDraw()
 }
 
 const afterMove = function (over) {
+  console.log('after move', over)
   over ? endGame() : switchTurns()
 }
 
 const switchTurns = function () {
   game.switchTurns()
-  // ui.switchTurns ?
+  ui.switchTurns()
 }
 
-const endGame = function () {
+const endGame = function (winner) {
   // distinguish between win loss and draw
-  currentGame.end()
-  ui.gameOver()
+  console.log('end game', winner)
+  controller.end()
+  ui.gameOver(winner)
+}
+
+const failed = function (error) {
+  if (typeof error === 'string') {
+    console.error('controller fail, string', error)
+  } else {
+    ui.failed(error)
+  }
 }
 
 module.exports = {
@@ -111,5 +96,6 @@ module.exports = {
   deleteGame,
   checkEnd,
   afterMove,
-  endGame
+  endGame,
+  failed
 }

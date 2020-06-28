@@ -1,6 +1,7 @@
 const api = require('./api.js')
 const controller = require('./controller.js')
-const ui = require('./ui.js') // shouldn't need this
+const ui = require('./ui.js') // shouldn't need this--
+// AND WON'T once non-game-logic ui is pulled into its own folder
 const getFormFields = require('./../../../lib/get-form-fields.js')
 
 // shouldn't need this twice, but if I put it in ./../api.js then event.preventDefault doesn't trigger
@@ -16,15 +17,24 @@ const handleForm = function (event) {
 
 const onStart = function () {
   api.createGame()
-    .then(controller.startGame)
-    .catch(console.log)
+    .then(response => {
+      console.log('response', response)
+      console.log('response.game._id', response.game._id)
+      controller.startGame(response.game._id)
+    })
+    .catch(controller.failed)
+}
+
+// Parse cells from game object
+const parseCells = function (cells) {
+  return cells.map(c => c ? c === 'x' ? 1 : -1 : 0)
 }
 
 const onGetAll = function () {
-  // console.log(api.getGames())
-  ui.clearOldGames() // Maybe check if api can even get the games first
+  ui.clearOldGames() // maybe check if api can get games first
   api.getGames()
     .then(ui.addOldGames)
+    .catch(ui.failed)
 }
 
 const onLoad = function (event) {
@@ -32,17 +42,32 @@ const onLoad = function (event) {
   console.log(data)
 
   api.getGame(data.game.id)
+    .then(response => {
+      return {
+        id: response.game[0]._id,
+        board: parseCells(response.game[0].cells),
+        over: response.game[0].over
+      }
+    })
     .then(controller.loadGame)
-    // .catch(ui.loadFailed)
+    .catch(controller.failed)
 }
 
 const onPlay = function (event) {
   const move = event.target.id
-  const moveResponse = controller.playMove(move)
-  if (moveResponse) {
-    api.sendMove(moveResponse.gameID, moveResponse.moveObject)
-    controller.afterMove(moveResponse.moveObject.over)
+  const moved = controller.playMove(move)
+  if (moved) {
+    console.log('moved', moved)
+    api.sendMove(moved.gameID, moved.move, moved.turn, moved.over)
+      .then(response => controller.afterMove(response.game.over))
+      .catch(controller.failed)
+  } else {
+    controller.failed()
   }
+  // controller.playMove(move)
+  //   .then(moved => api.sendMove(moved.id, moved.move, moved.turn, moved.over))
+  //   .then(game => controller.afterMove(game.over))
+  //   .catch(controller.failed)
 }
 
 const onDelete = function (event) {
@@ -55,23 +80,25 @@ const onDelete = function (event) {
 }
 
 const onGameList = function (event) {
-  console.log('gameList event', event)
-  console.log('gameList event target', event.target)
-  // console.log('gameList gameID', event.target.data('gameID'))
-  // console.log('has class load?', event.target.hasClass('load'))
-  // console.log('has class delete?', event.target.hasClass('delete'))
-  console.log(event.target.getAttribute('data-gameid'))
-  console.log(event.target.getAttribute('class'))
-
   // fix thisss Don't call the api again. Maybe we should just be passing game data to the controller.
-  if (event.target.getAttribute('class') === 'load btn') {
-    api.getGame(event.target.getAttribute('data-gameid'))
+  if ($(event.target).hasClass('load')) {
+    api.getGame($(event.target).data('gameid'))
+      .then(response => {
+        return {
+          id: response.game[0]._id,
+          board: parseCells(response.game[0].cells),
+          over: response.game[0].over
+        }
+      })
       .then(controller.loadGame)
+      .catch(controller.failed)
   }
-  // This is so brittle, fix iiit
-  if (event.target.getAttribute('class') === 'delete btn') {
-    api.deleteGame(event.target.getAttribute('data-gameid'))
+
+  if ($(event.target).hasClass('delete')) {
+    api.deleteGame($(event.target).data('gameid'))
       .then(controller.deleteGame)
+      .then(onGetAll)
+      .catch(controller.failed)
   }
 }
 
