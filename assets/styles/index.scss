@@ -14,8 +14,6 @@ $complementary-color: #fdfe7f;
 
 $transparent: rgba(0, 0, 0, .15);
 
-// Make X and O different colors?
-
 header {
   text-align: center;
 }
@@ -92,7 +90,7 @@ body {
 }
 
 .success {
-  color: $green;
+  color: $dark-blue;
 }
 
 .failure {
