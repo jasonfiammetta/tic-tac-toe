@@ -27,6 +27,7 @@ $(() => {
 
   $('#sidebar-collapse').on('click', () => {
     $('#sidebar').toggleClass('hidden')
+    $('#password-message').text('')
   })
 
   $('#old-games').on('click', 'li', gameEvents.onGameList)
