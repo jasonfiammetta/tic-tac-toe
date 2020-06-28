@@ -1,5 +1,4 @@
 const api = require('./api.js')
-// const ui = require('./ui.js')
 const controller = require('./controller.js')
 const getFormFields = require('./../../../lib/get-form-fields.js')
 
@@ -18,13 +17,16 @@ const onSignUp = function (event) {
   const data = handleForm(event)
   console.log(data)
   api.signUp(data)
-    .then(controller.signUp)
+    .then(response => {
+      console.log('events.js sign up response', response)
+      controller.signUp(response)
+    })
     .then(response => {
       delete data.credentials.password_confirmation
       return api.logIn(data)
     })
     .then(controller.logIn)
-    .catch(response => console.log('failed sign up and log in combined', response))
+    .catch(error => controller.failed('Could not sign up with those credentials.', error))
 }
 
 const onLogIn = function (event) {
@@ -32,31 +34,23 @@ const onLogIn = function (event) {
 
   api.logIn(data)
     .then(controller.logIn)
-    .catch(response => console.log('failed sign in', response))
-    // .then(controller.logIn)
-    // .then(ui.logIn)
-    // .catch(ui.fail)
+    .catch(error => controller.failed('Could not log in with those credentials.', error))
 }
 
 const onChangePassword = function (event) {
   const data = handleForm(event)
 
   api.changePassword(data)
-    .then(response => {
-      console.log('Changed password!', response)
-    })
-    .catch(response => console.log('failed change password', response))
-    // .then(ui.changePassword)
-    // .catch(ui.fail)
+    .then(controller.changePassword)
+    .catch(error => controller.failed('Could not change password with those credentials.', error))
 }
 
 const onLogOut = function (event) {
-  // event.preventDefault()
   handleForm(event)
 
   api.logOut()
     .then(controller.logOut)
-    .catch(response => console.log('failed sign out', response))
+    .catch(error => controller.failed('Could not sign out.', error))
 }
 
 module.exports = {
