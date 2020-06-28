@@ -1,7 +1,20 @@
 # Tic-Tac-Toe
 
-Using a provided backend API to allow users to sign up, log in, and play tic tac toe games.
+This is a client application for an API that allow users to sign up, log in, and play tic tac toe games.
 
+Tic tac toe is a pencil and paper game in which two players play X's or O's in a grid on alternating turns, and the first player to create a complete line of their symbol wins.
+
+### Technologies Used
+
+Javascript, HTML, CSS/Sass
+JQuery, AJAX
+Bootstrap, Webpack
+Bash, curl
+
+### Wireframes
+
+![Web wireframes](web_wireframe.jpg)
+![Mobile wireframes](mobile_wireframe.jpg)
 
 #### [License](LICENSE)
 
