@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <title>Tic Tac Toe</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+
+      <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+
+      <script src="public/vendor.js" type="text/javascript" charset="utf-8" defer></script>
+      <script src="public/application.js" type="text/javascript" charset="utf-8" defer></script>
+    </head>
+    <body>
+      <header>
+        <h1>Tic Tac Toe</h1>
+      </header>
+      <section class="not-logged-in">
+        <h2>Sign Up</h2>
+        <form id="sign-up">
+          <input type="email" name="credentials[email]" required placeholder="Email">
+          <input type="password" name="credentials[password]" required placeholder="Password">
+          <input type="password" name="credentials[password_confirmation]" required placeholder="Password">
+          <button type="submit" class="btn">Sign Up</button>
+        </form>
+        <h2>Or Log In</h2>
+        <form id="log-in">
+          <input type="email" name="credentials[email]" required placeholder="Email">
+          <input type="password" name="credentials[password]" required placeholder="Password">
+          <button type="submit" class="btn">Log In</button>
+        </form>
+        <!-- Not implemented yet -->
+        <!-- <p>Or Sign In As A Guest</p>
+        <form id="guest-sign-in">
+          <button type="submit" class="btn">Guest Sign In</button>
+        </form> -->
+      </section>
+      <p id="auth-message"></p>
+      <div id="options" class="logged-in">
+        <button type="button" id="sidebar-collapse" class="btn">Account</button>
+      </div>
+      <div class="wrapper logged-in">
+        <!-- sidebar -->
+        <section id="sidebar" class="hidden">
+          <section id="account-options">
+            <h3>Account Options</h3>
+            <section class="logged-in">
+              <h4>Change Password</h4>
+              <form id="change-password">
+                <input type="password" name="passwords[old]" required placeholder="Old Password">
+                <input type="password" name="passwords[new]" required placeholder="New Password">
+                <button type="submit" class="btn">Change Password</button>
+              </form>
+              <p id="password-message"></p>
+              <!-- <h4>Log Out</h4> -->
+              <form id="log-out">
+                <button type="submit" class="btn">Log out</button>
+              </form>
+            </section>
+          </section>
+          <section id="game-options">
+            <!-- move Get all games, load game, and delete game in here -->
+            <ul id="old-games"> <!-- Use this id to attach event listeners to li children -->
+              <!-- give each li its own load and delete button -->
+              <!-- <li class="old-game">
+                <p>Time or date created, or number'th game</p>
+                <button type="button" class="btn">Load game</button>
+                <button type="button" class="btn">Delete game</button>
+              </li> -->
+            </ul>
+          </section>
+        </section>
+      </div>
+      <main class="container-fluid">
+        <section class="logged-in">
+          <button type="button" id="start-game" class="btn">Start New Game</button>
+          <button type="button" id="get-all-games" class="btn">Get all your Games</button>
+          <form id="load-game">
+            <input type="text" name="game[id]" required placeholder="Game ID">
+            <button type="submit" class="btn">Load a Game</button>
+          </form>
+          <form id="delete-game">
+            <input type="text" name="game[id]" required placeholder="Game ID">
+            <button type="submit" class="btn">Delete a Game</button>
+          </form>
+        </section>
+        <div class="board">
+          <p id="board-message"></p>
+          <div class="row">
+            <div class="col-4 board-square" id="0"> XO </div>
+            <div class="col-4 board-square" id="1"> XO </div>
+            <div class="col-4 board-square" id="2"> XO </div>
+          <!-- </div>
+          <div class="row"> -->
+            <div class="col-4 board-square" id="3"> XO </div>
+            <div class="col-4 board-square" id="4"> XO </div>
+            <div class="col-4 board-square" id="5"> XO </div>
+          <!-- </div>
+          <div class="row"> -->
+            <div class="col-4 board-square" id="6"> XO </div>
+            <div class="col-4 board-square" id="7"> XO </div>
+            <div class="col-4 board-square" id="8"> XO </div>
+          </div>
+      </main>
+    </body>
+</html>
