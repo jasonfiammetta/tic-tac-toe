@@ -42,7 +42,6 @@ const logOut = function () {
 }
 
 const fail = function (message) {
-  console.log('auth ui failed', message)
   message.includes('password') ? $changePass.text(message) : authMessage(message, true)
   $allForms.trigger('reset')
 }

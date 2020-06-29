@@ -46,7 +46,7 @@ const logOut = function () {
 }
 
 const failed = function (message, error) {
-  console.error('api controller error: ' + message, error)
+  // console.error('api controller error: ' + message, error)
   ui.fail(message)
 }
 

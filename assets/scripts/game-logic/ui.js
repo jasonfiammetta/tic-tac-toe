@@ -29,7 +29,7 @@ const gameStart = function () {
 }
 
 const playMove = function (move, turn) {
-  console.log('ui playMove', move)
+  // console.log('ui playMove', move)
   const xoturn = xo(turn)
   $('#' + move).text(xoturn)
   $boardMessage.text(`Played ${xoturn} in spot ${move}!`)
@@ -38,7 +38,6 @@ const playMove = function (move, turn) {
 const gameOver = function (winner) {
   // cross line for winner if there is one
   let winString
-  console.log('winner', winner)
   if (winner === 1) {
     winString = 'X wins!'
   } else if (winner === -1) {
@@ -75,8 +74,8 @@ const addOldGame = function (game) {
 }
 
 const addOldGames = function (gameObject) {
-  console.log(gameObject)
-  console.log(gameObject.games)
+  // console.log(gameObject)
+  // console.log(gameObject.games)
   gameObject.games.forEach(addOldGame)
 }
 

@@ -6,21 +6,14 @@ const getFormFields = require('./../../../lib/get-form-fields.js')
 const handleForm = function (event) {
   event.preventDefault()
 
-  console.log(event)
-  const formFields = getFormFields(event.target)
-  console.log('form', formFields)
-
-  return formFields
+  return getFormFields(event.target)
 }
 
 const onSignUp = function (event) {
   const data = handleForm(event)
-  console.log(data)
+  // console.log(data)
   api.signUp(data)
-    .then(response => {
-      console.log('events.js sign up response', response)
-      controller.signUp(response)
-    })
+    .then(controller.signUp)
     .then(response => {
       delete data.credentials.password_confirmation
       return api.logIn(data)

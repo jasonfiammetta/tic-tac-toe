@@ -20,7 +20,7 @@ const apiCall = {
     return this
   },
   callAjax: function () {
-    console.log('apiCall', this.call)
+    // console.log('apiCall', this.call)
     return $.ajax(this.call)
   }
 }

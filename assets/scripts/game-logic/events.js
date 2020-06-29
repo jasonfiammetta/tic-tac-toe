@@ -7,21 +7,12 @@ const getFormFields = require('./../../../lib/get-form-fields.js')
 // shouldn't need this twice, but if I put it in ./../api.js then event.preventDefault doesn't trigger
 const handleForm = function (event) {
   event.preventDefault()
-
-  console.log(event)
-  const formFields = getFormFields(event.target)
-  console.log('form', formFields)
-
-  return formFields
+  return getFormFields(event.target)
 }
 
 const onStart = function () {
   api.createGame()
-    .then(response => {
-      console.log('response', response)
-      console.log('response.game._id', response.game._id)
-      controller.startGame(response.game._id)
-    })
+    .then(response => controller.startGame(response.game._id))
     .catch(controller.failed)
 }
 
@@ -39,7 +30,6 @@ const onGetAll = function () {
 
 const onLoad = function (event) {
   const data = handleForm(event)
-  console.log(data)
 
   api.getGame(data.game.id)
     .then(response => {
@@ -57,13 +47,16 @@ const onPlay = function (event) {
   const move = event.target.id
   const moved = controller.playMove(move)
   if (moved) {
-    console.log('moved', moved)
+    // console.log('moved', moved)
     api.sendMove(moved.gameID, moved.move, moved.turn, moved.over)
       .then(() => controller.afterMove(moved.over, moved.winner))
       .catch(controller.failed)
-  } else {
-    controller.failed('Could not play move') // probably delete this
   }
+  // else {
+  // // should distinguish between moving on a taken square and moving on a completed board
+  //   controller.failed('Could not play move')
+  // }
+
   // controller.playMove(move)
   //   .then(moved => api.sendMove(moved.id, moved.move, moved.turn, moved.over))
   //   .then(game => controller.afterMove(game.over))
@@ -72,16 +65,17 @@ const onPlay = function (event) {
 
 const onDelete = function (event) {
   const data = handleForm(event)
-  console.log(data)
+  // console.log(data)
 
   api.deleteGame(data.game.id)
     .then((response) => controller.deleteGame(data.game.id))
-    .catch(console.log)
+    .catch(controller.failed)
 }
 
 const onGameList = function (event) {
-  // fix thisss Don't call the api again. Maybe we should just be passing game data to the controller.
+  // fix this, don't call the api again
   if ($(event.target).hasClass('load')) {
+    // $('#old-games').find() ... $(event.target).data('gameid'); return {id, cells, over}
     api.getGame($(event.target).data('gameid'))
       .then(response => {
         return {
