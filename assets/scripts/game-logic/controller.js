@@ -36,11 +36,13 @@ const playMove = function (move) {
   if (controller.over || game.tictactoe.board[move] !== 0) { return }
   game.playMove(move)
   ui.playMove(move, game.tictactoe.turn)
+  const end = checkEnd()
   return {
     gameID: controller.gameID,
     move: move,
     turn: game.tictactoe.turn,
-    over: checkEnd()
+    over: end.over,
+    winner: end.gameWon ? game.tictactoe.turn : false
   }
 }
 
@@ -53,20 +55,25 @@ const loadGame = function (gameState) {
 const deleteGame = function (id) {
   console.log('deleting game')
   if (id === controller.gameID) {
-    endGame()
+    endGame('Game deleted.')
     ui.deleteGame()
   }
   // ui.refresh()
 }
 
 const checkEnd = function () {
-  const winner = game.checkWin()
-  return !!winner || game.checkDraw()
+  const gameWon = game.checkWin()
+  const allSquaresFilled = game.checkDraw()
+
+  console.log('checkEnd gameWon draw', gameWon, allSquaresFilled)
+  return {
+    over: gameWon || allSquaresFilled,
+    gameWon: gameWon
+  }
 }
 
-const afterMove = function (over) {
-  console.log('after move', over)
-  over ? endGame() : switchTurns()
+const afterMove = function (over, winner) {
+  over ? endGame(winner) : switchTurns()
 }
 
 const switchTurns = function () {
@@ -83,7 +90,7 @@ const endGame = function (winner) {
 
 const failed = function (error) {
   if (typeof error === 'string') {
-    console.error('controller fail, string', error)
+    console.error('controller fail, string', error) // probably delete this
   } else {
     ui.failed(error)
   }

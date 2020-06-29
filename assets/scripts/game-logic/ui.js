@@ -38,14 +38,15 @@ const playMove = function (move, turn) {
 const gameOver = function (winner) {
   // cross line for winner if there is one
   let winString
-  if (winner === 'x') {
+  console.log('winner', winner)
+  if (winner === 1) {
     winString = 'X wins!'
-  } else if (winner === 'o') {
+  } else if (winner === -1) {
     winString = 'O wins!'
   } else {
     winString = 'It\'s a draw!'
   }
-  $boardMessage.text('Game over! ') // + winString)
+  $boardMessage.text('Game over! ' + winString)
 }
 
 const loadGame = function (board) {

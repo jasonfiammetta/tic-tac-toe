@@ -32,6 +32,7 @@ A User can find old games that they have played.
 
 ### Future goals
 
+- Let the sidebar scroll
 - Make the sidebar look nicer
 - Separate the account sidebar from the games list
 - Display stats for the user

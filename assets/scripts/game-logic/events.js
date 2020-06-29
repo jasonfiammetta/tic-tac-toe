@@ -59,10 +59,10 @@ const onPlay = function (event) {
   if (moved) {
     console.log('moved', moved)
     api.sendMove(moved.gameID, moved.move, moved.turn, moved.over)
-      .then(response => controller.afterMove(response.game.over))
+      .then(() => controller.afterMove(moved.over, moved.winner))
       .catch(controller.failed)
   } else {
-    controller.failed()
+    controller.failed('Could not play move') // probably delete this
   }
   // controller.playMove(move)
   //   .then(moved => api.sendMove(moved.id, moved.move, moved.turn, moved.over))
